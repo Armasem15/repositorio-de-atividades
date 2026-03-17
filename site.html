@@ -1,54 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>repositorio robinho</title>
+    <title>Meu Repositório XP</title>
     <style>
-
-    body 
-    
-    {
-        background-image: url('plano de fundo.jpg');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-    }
-
-
-    { font-family: sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; padding: 50px; }
-        .container { max-width: 400px; width: 100%; text-align: center; }
-        .link-card {
-            background: rgba(31, 18, 143, 0.777);
-            margin: 15px 0;
+        /* Reset e Fundo */
+        body {
+            background: #3a6ea5 url('https://wallpaperbat.com/img/200968279-just-moved-over-to-linux-wanted-a-background-didnt-find-what-i-wanted-so-i-made-it-he-looms.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: "Tahoma", sans-serif;
+            margin: 0;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(189, 227, 234, 0.832);
-            text-decoration: none;
-            color: #a4dded;
-            display: block;
-            transition: transform 0.2s;
         }
-        .link-card:hover { transform: scale(1.03); border: 1px solid #007bff; }
-        h2 { color: #222; }
 
+        /* Estilo da Janela Principal */
+        .window {
+            background: #ece9d8;
+            border: 3px solid #0055e5;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Barra de Título */
+        .title-bar {
+            background: linear-gradient(to bottom, #0058e4 0%, #3b8cf8 10%, #1e71f2 50%, #1159d2 100%);
+            padding: 5px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px #003399;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .title-buttons img {
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Menu de Navegação (Estilo Pasta) */
+        .toolbar {
+            background: #ece9d8;
+            border-bottom: 1px solid #aca899;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        /* Grid de Matérias */
+        .content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            background: white;
+            min-height: 400px;
+        }
+
+        /* Ícone da Matéria */
+        .folder {
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            font-size: 13px;
+            padding: 10px;
+            border: 1px solid transparent;
+        }
+
+        .folder:hover {
+            background-color: #316ac5;
+            color: white;
+            border: 1px dotted #eee;
+        }
+
+        .folder img {
+            width: 50px;
+            height: 50px;
+            display: block;
+            margin: 0 auto 5px;
+            image-rendering: pixelated; /* Dá aquele ar antigo */
+        }
+
+        /* Rodapé / Barra de Status */
+        .status-bar {
+            background: #ece9d8;
+            border-top: 1px solid #aca899;
+            padding: 3px 10px;
+            font-size: 11px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
-    
-    <div class="container">
-        <h2> Portfólio de Projetos</h2> 
-        <p>Professor, abaixo estão os links para as atividades:</p> 
 
-        <a href="https://github.com/Armasem15/tesste" class="link-card"><strong>Projeto 1:</strong> primeiros testes</a>
-        <a href="https://github.com/Armasem15/filtro.js" class="link-card"><strong>filtro js:</strong> atividade 17/03/2026</a>
-        <a href="https://github.com/Armasem15/variavel.js" class="link-card"><strong>"variavel.js":</strong> 26/02/2026</a>
-        <a href="URL_DO_PROJETO_3" class="link-card"><strong>Projeto 3:</strong> Descrição curta aqui</a>
-        <a href="https://gamma.app/docs/Propriedade-Intelectual-O-que-e-e-por-que-importa-k496fyk2o64qie2" class="link-card"><strong>Projeto Gamma - Propriedade Intelectual :</strong> apresentações de slides</a>
-        <a href="https://gamma.app/docs/Simplificando-a-Gestao-Conectando-a-Comunidade-Agenda-Escolar-18ll3hmyc29x1aj" class="link-card"><strong>Projeto Gamma - App Agenda Escolar:</strong> apresentações de slides</a>
-        <a href="https://gamma.app/docs/Startups-em-2026-Navegando-em-um-Novo-Ciclo-de-Inovacao-pxdg93o6gl4g5l0" class="link-card"><strong>startups de 2026:</strong> apresentações de slides</a>
+<div class="window">
+    <div class="title-bar">
+        <span>Meus Documentos - Atividades Acadêmicas</span>
+        <div class="title-buttons">
+            <span> _ □ X </span>
+        </div>
     </div>
+
+    <div class="toolbar">
+        Arquivo  Editar  Exibir  Favoritos  Ferramentas  Ajuda
+    </div>
+
+    <div class="content">
+        
+        <a href="https://github.com/Armasem15/testes-js" class="folder">
+            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
+            <span>teste.js</span>
+        </a>
+
+        <a href="https://github.com/Armasem15/variavel.js" class="folder">
+            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
+            <span>Variavel.js</span>
+        </a>
+
+        <a href="https://github.com/Armasem15/filtro.js" class="folder">
+            <img src= "https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
+            <span>Filtro.js</span>
+        </a>
+
+        <a href="#" class="folder">
+            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
+            <span>...</span>
+        </a>
+
+        <a href="#" class="folder">
+            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
+            <span>...</span>
+        </a>
+
+        <a href="#" class="folder">
+            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
+            <span>...</span>
+        </a>
+
+        <a href="https://gamma.app/docs/Propriedade-Intelectual-O-que-e-e-por-que-importa-k496fyk2o64qie2" class="folder">
+            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
+            <span>Gamma - Propriedade Intelectual</span>
+        </a>
+
+    <a href="https://gamma.app/docs/Agenda-Escolar-d53bxam7tep0gwt" class="folder">
+            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
+            <span>Gamma - App Agenda Escolar</span>
+        </a>
+
+        <a href="https://gamma.app/docs/Startups-em-2026-Navegando-em-um-Novo-Ciclo-de-Inovacao-pxdg93o6gl4g5l0" class="folder">
+            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
+            <span>Gamma - Startups de 2026</span>
+        </a>
+
+    </div>
+
+    <div class="status-bar">
+        6 objetos selecionados
+    </div>
+</div>
 
 </body>
 </html>
