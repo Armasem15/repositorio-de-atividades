@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio Dark Aero - Projetos</title>
+  <style>
+    :root {
+      --bg-color: #050811;
+      --bg-gradient-center: #0a192f;
+      --glass-bg: rgba(10, 18, 36, 0.6);
+      --glass-border: rgba(0, 240, 255, 0.25);
+      --glass-glow: rgba(0, 240, 255, 0.2);
+      --accent-color: #00f0ff;
+      --text-color: #e0f7fc;
+      --text-dim: #7da5c9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at center, var(--bg-gradient-center) 0%, var(--bg-color) 100%);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--glass-glow) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transition: background 0.5s ease;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 25px 35px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .btn-action {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.3));
+      border: 1px solid var(--glass-border);
+      color: var(--text-color);
+      padding: 12px 24px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-action:hover {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 20px var(--glass-glow), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+      color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+
+    .showcase {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.5));
+      border: 1px solid var(--glass-border);
+      color: var(--accent-color);
+      font-size: 22px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.12);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 25px var(--glass-glow);
+    }
+
+    .project-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 25px;
+      text-align: center;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.25);
+      width: 100%;
+      max-width: 650px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .media-container {
+      width: 100%;
+      height: 350px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    .media-container a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .media-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .media-container:hover img {
+      transform: scale(1.05);
+    }
+
+    .project-title {
+      margin-top: 22px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      color: var(--text-color);
+      text-shadow: 0 0 12px var(--glass-glow);
+      transition: text-shadow 0.3s ease;
+    }
+
+    .project-subtitle {
+      margin-top: 6px;
+      font-size: 0.88rem;
+      color: var(--text-dim);
+    }
+
+    /* Tocador de Música Dark Aero (Canto Inferior Esquerdo) */
+    .music-player {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      z-index: 10;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 12px 20px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .play-btn {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.4));
+      border: 1px solid var(--glass-border);
+      color: var(--accent-color);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--glass-glow);
+    }
+
+    .track-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .track-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-color);
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-artist {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    /* Modais */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(3, 6, 14, 0.85);
+      backdrop-filter: blur(14px);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      width: 90%;
+      max-width: 480px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 12px;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      color: var(--accent-color);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #fff;
+    }
+
+    .project-list {
+      list-style: none;
+    }
+
+    .project-list li {
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-list li:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--glass-border);
+      color: var(--accent-color);
+      transform: translateX(4px);
+    }
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .theme-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-card:hover {
+      border-color: var(--glass-border);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .color-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="btn-action" id="openThemeBtn"> Personalizar Tema</button>
+    <button class="btn-action" id="openModalBtn">☰ Lista de Projetos</button>
+  </header>
+
+  <main class="showcase">
+    <button class="nav-btn" id="prevBtn">&#10094;</button>
+
+    <div class="project-card">
+      <div class="media-container">
+        <a id="projectLink" href="#" target="_blank" title="Clique para acessar o projeto">
+          <img id="projectImg" src="" alt="Preview do Projeto">
+        </a>
+      </div>
+      <h2 class="project-title" id="projectTitle">Carregando...</h2>
+      <p class="project-subtitle" id="projectSubtitle"></p>
+    </div>
+
+    <button class="nav-btn" id="nextBtn">&#10095;</button>
+  </main>
+
+  <!-- Tocador de Música Dark Aero -->
+  <div class="music-player">
+    <button class="play-btn" id="audioToggle">▶</button>
+    <div class="track-info">
+      <span class="track-title">Stickerbush Symphony</span>
+      <span class="track-artist">Bramble Blast (DKC2)</span>
+    </div>
+    <!-- Elemento de áudio com link público para streaming -->
+    <audio id="bgAudio" loop src="https://ia800302.us.archive.org/29/items/DonkeyKongCountry2MusicStickerbushSymphony/Donkey%20Kong%20Country%202%20Music%20-%20Stickerbush%20Symphony.mp3"></audio>
+  </div>
+
+  <!-- Modal de Lista de Projetos -->
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Todos os Projetos</h3>
+        <button class="close-btn" id="closeModalBtn">&times;</button>
+      </div>
+      <ul class="project-list" id="modalProjectList"></ul>
+    </div>
+  </div>
+
+  <!-- Modal de Temas e Cores -->
+  <div class="modal" id="themeModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Estilo e Cores</h3>
+        <button class="close-btn" id="closeThemeBtn">&times;</button>
+      </div>
+      <div class="theme-grid" id="themeGrid"></div>
+    </div>
+  </div>
+
+  <script>
+    const projects = [
+      {
+        title: "trabalho do conselho estudantil",
+        subtitle: "Atividade do professor Robson",
+        image: "https://i.pinimg.com/originals/8a/70/3b/8a703b77a840b70034f44c34eb81554e.gif",
+        link: "https://armasem15.github.io/conselho/index.html.html"
+      },
+      {
+        title: "A1",
+        subtitle: "...",
+        image: "https://i.pinimg.com/originals/a8/57/67/a857670557c3cdf3e7a05f7418d2310f.gif",
+        link: "https://codepen.io"
+      },
+      {
+        title: "A2",
+        subtitle: "...",
+        image: "https://i.pinimg.com/originals/35/c7/9c/35c79cb792abbe802db4c28537a22234.gif",
+        link: "https://dribbble.com"
+      }
+    ];
+
+    const themes = [
+      {
+        name: "repositorio ciano",
+        bgColor: "#050811",
+        bgGradientCenter: "#0a192f",
+        accentColor: "#00f0ff",
+        glassBorder: "rgba(0, 240, 255, 0.25)",
+        glassGlow: "rgba(0, 240, 255, 0.2)"
+      },
+      {
+        name: "Emerald Void",
+        bgColor: "#030f0a",
+        bgGradientCenter: "#08291c",
+        accentColor: "#00ff9d",
+        glassBorder: "rgba(0, 255, 157, 0.25)",
+        glassGlow: "rgba(0, 255, 157, 0.2)"
+      },
+      {
+        name: "Amethyst Pulse",
+        bgColor: "#090514",
+        bgGradientCenter: "#1d0b36",
+        accentColor: "#bf00ff",
+        glassBorder: "rgba(191, 0, 255, 0.25)",
+        glassGlow: "rgba(191, 0, 255, 0.2)"
+      },
+      {
+        name: "Crimson Aero",
+        bgColor: "#120406",
+        bgGradientCenter: "#2b0a10",
+        accentColor: "#ff0055",
+        glassBorder: "rgba(255, 0, 85, 0.25)",
+        glassGlow: "rgba(255, 0, 85, 0.2)"
+      }
+    ];
+
+    let currentIndex = 0;
+
+    const imgElement = document.getElementById('projectImg');
+    const linkElement = document.getElementById('projectLink');
+    const titleElement = document.getElementById('projectTitle');
+    const subtitleElement = document.getElementById('projectSubtitle');
+    
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    const projectModal = document.getElementById('projectModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalProjectList = document.getElementById('modalProjectList');
+
+    const themeModal = document.getElementById('themeModal');
+    const openThemeBtn = document.getElementById('openThemeBtn');
+    const closeThemeBtn = document.getElementById('closeThemeBtn');
+    const themeGrid = document.getElementById('themeGrid');
+
+    // Controle do Audio Player
+    const audio = document.getElementById('bgAudio');
+    const audioToggle = document.getElementById('audioToggle');
+
+    audioToggle.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        audioToggle.textContent = '❚❚';
+      } else {
+        audio.pause();
+        audioToggle.textContent = '▶';
+      }
+    });
+
+    function updateProject(index) {
+      currentIndex = index;
+      const project = projects[currentIndex];
+      imgElement.src = project.image;
+      linkElement.href = project.link;
+      titleElement.textContent = project.title;
+      subtitleElement.textContent = project.subtitle;
+    }
+
+    function applyTheme(theme) {
+      const root = document.documentElement;
+      root.style.setProperty('--bg-color', theme.bgColor);
+      root.style.setProperty('--bg-gradient-center', theme.bgGradientCenter);
+      root.style.setProperty('--accent-color', theme.accentColor);
+      root.style.setProperty('--glass-border', theme.glassBorder);
+      root.style.setProperty('--glass-glow', theme.glassGlow);
+    }
+
+    function populateThemeGrid() {
+      themeGrid.innerHTML = '';
+      themes.forEach(theme => {
+        const card = document.createElement('div');
+        card.className = 'theme-card';
+        card.innerHTML = `
+          <span>${theme.name}</span>
+          <div class="color-dots">
+            <div class="dot" style="background:${theme.bgColor}"></div>
+            <div class="dot" style="background:${theme.accentColor}"></div>
+          </div>
+        `;
+        card.addEventListener('click', () => {
+          applyTheme(theme);
+          themeModal.classList.remove('active');
+        });
+        themeGrid.appendChild(card);
+      });
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + projects.length) % projects.length;
+      updateProject(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % projects.length;
+      updateProject(currentIndex);
+    });
+
+    function populateModalList() {
+      modalProjectList.innerHTML = '';
+      projects.forEach((proj, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${proj.title}</span> <small style="color:var(--text-dim);">&#10140;</small>`;
+        li.addEventListener('click', () => {
+          updateProject(index);
+          projectModal.classList.remove('active');
+        });
+        modalProjectList.appendChild(li);
+      });
+    }
+
+    openModalBtn.addEventListener('click', () => {
+      populateModalList();
+      projectModal.classList.add('active');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      projectModal.classList.remove('active');
+    });
+
+    openThemeBtn.addEventListener('click', () => {
+      populateThemeGrid();
+      themeModal.classList.add('active');
+    });
+
+    closeThemeBtn.addEventListener('click', () => {
+      themeModal.classList.remove('active');
+    });
+
+    [projectModal, themeModal].forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+    });
+
+    updateProject(0);
+  </script>
+</body>
+</html>
