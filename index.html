@@ -2,377 +2,938 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Meu Repositório</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Repositório XP - Atividades Acadêmicas</title>
     <style>
         /* Reset e Fundo */
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Cores padrão: Azul Clássico XP */
+            --win-border: #0055e5;
+            --win-title-bg: linear-gradient(to bottom, #0058e4 0%, #3b8cf8 10%, #1e71f2 50%, #1159d2 100%);
+            --win-tab-active: #0055e5;
+            --win-folder-hover: #316ac5;
+        }
+
         body {
-            background: #3a6ea5 url('https://i.pinimg.com/originals/44/db/93/44db938c4d86a7ea3ae51a511304a117.gif') no-repeat center center fixed;
+            background: #3a6ea5 url('https://wallpaperbat.com/img/200968279-just-moved-over-to-linux-wanted-a-background-didnt-find-what-i-wanted-so-i-made-it-he-looms.png') no-repeat center center fixed;
             background-size: cover;
-            font-family: "Tahoma", sans-serif;
+            font-family: "Tahoma", "Segoe UI", sans-serif;
             margin: 0;
             padding: 20px;
+            padding-bottom: 50px;
+            transition: background 0.3s ease;
+        }
+
+        /* Animações */
+        @keyframes windowAppear {
+            0% { opacity: 0; transform: scale(0.96) translateY(15px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes windowMinimize {
+            0% { opacity: 1; transform: scale(1) translateY(0); }
+            100% { opacity: 0; transform: scale(0.2) translateY(500px); }
         }
 
         /* Estilo da Janela Principal */
         .window {
             background: #ece9d8;
-            border: 3px solid #0055e5;
+            border: 3px solid var(--win-border);
             border-radius: 8px 8px 0 0;
-            box-shadow: 2px 2px 10px rgba(203, 203, 203, 0.5);
-            max-width: 900px;
+            box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.6);
+            max-width: 960px;
             margin: 0 auto;
+            overflow: hidden;
+            animation: windowAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: border-color 0.3s ease;
+        }
+
+        .window.minimized {
+            animation: windowMinimize 0.3s forwards ease-in-out;
+            pointer-events: none;
         }
 
         /* Barra de Título */
         .title-bar {
-            background: linear-gradient(to bottom, #0058e4 0%, #3b8cf8 10%, #1e71f2 50%, #1159d2 100%);
+            background: var(--win-title-bg);
             padding: 5px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             color: white;
             font-weight: bold;
+            font-size: 13px;
             text-shadow: 1px 1px #003399;
-            border-radius: 5px 5px 0 0;
+            user-select: none;
         }
 
-        .title-buttons img {
-            height: 20px;
+        .title-bar-text {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Botões da Janela */
+        .title-buttons {
+            display: flex;
+            gap: 3px;
+        }
+
+        .btn-win {
+            width: 21px;
+            height: 21px;
+            background: linear-gradient(to bottom, #ece9d8, #d4d0c8);
+            border: 1px solid #ffffff;
+            border-bottom-color: #808080;
+            border-right-color: #808080;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            box-shadow: inset -1px -1px 0 #404040;
+            transition: filter 0.15s, transform 0.1s;
         }
 
-        /* Menu de Navegação (Estilo Pasta) */
+        .btn-win:hover { filter: brightness(1.15); }
+        .btn-win:active { transform: translateY(1px); }
+
+        .btn-win.close {
+            background: linear-gradient(to bottom, #e1654e, #c7381e);
+            color: white;
+            border-color: #fca797 #8c1e0b #8c1e0b #fca797;
+            text-shadow: 1px 1px #500;
+        }
+
+        /* Menu de Navegação */
         .toolbar {
-            background: #1b1c2b;
+            background: #ece9d8;
             border-bottom: 1px solid #aca899;
-            padding: 5px 10px;
+            padding: 4px 10px;
+            font-size: 12px;
+            display: flex;
+            gap: 12px;
+            color: #000;
+            user-select: none;
+        }
+
+        .toolbar span {
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 2px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .toolbar span:hover {
+            background-color: var(--win-folder-hover);
+            color: white;
+        }
+
+        /* Barra de Endereço */
+        .address-bar {
+            background: #ece9d8;
+            border-bottom: 1px solid #aca899;
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 12px;
         }
 
-        /* Grid de Matérias */
-        .content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 20px;
-            background: #1b1c2b;
-            min-height: 400px;
+        .address-bar label {
+            color: #555;
+            font-weight: bold;
         }
 
-        /* Ícone da Matéria */
+        .address-input {
+            flex: 1;
+            background: #fff;
+            border: 1px solid #7f9db9;
+            padding: 3px 8px;
+            font-size: 12px;
+            color: #222;
+        }
+
+        /* Sistema de Abas */
+        .tab-bar {
+            display: flex;
+            background: #ece9d8;
+            padding: 8px 10px 0 10px;
+            border-bottom: 2px solid var(--win-border);
+            gap: 3px;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            background: linear-gradient(to bottom, #f7f5ef, #d8d3c5);
+            border: 1px solid #aca899;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #444;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .tab-button:hover {
+            background: #ffffff;
+            color: var(--win-tab-active);
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: #ffffff;
+            border: 2px solid var(--win-border);
+            border-bottom: 2px solid #ffffff;
+            margin-bottom: -2px;
+            color: var(--win-tab-active);
+            z-index: 2;
+        }
+
+        /* Conteúdo Principal */
+        .content-area {
+            background: #ffffff;
+            min-height: 380px;
+            padding: 20px;
+        }
+
+        @keyframes tabFade {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+            align-content: start;
+        }
+
+        .tab-content.active {
+            display: grid;
+            animation: tabFade 0.25s ease-out forwards;
+        }
+
+        /* Modo Lista (Exibir) */
+        .tab-content.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .tab-content.list-view .folder {
+            flex-direction: row;
+            text-align: left;
+            padding: 6px 12px;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+
+        .tab-content.list-view .folder img {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 0;
+        }
+
+        /* Ícone da Pasta */
         .folder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
             text-decoration: none;
-            color: rgb(217, 255, 0);
-            font-size: 13px;
-            padding: 10px;
+            color: #000;
+            font-size: 12px;
+            padding: 10px 6px;
             border: 1px solid transparent;
-        }
-
-        .folder:hover {
-            background-color: #316ac5;
-            color: white;
-            border: 1px dotted #eee;
+            border-radius: 3px;
+            word-break: break-word;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s;
         }
 
         .folder img {
-            width: 80px;
-            height: 80px;
-            display: block;
-            margin: 0 auto 5px;
-            image-rendering: pixelated; /* Dá aquele ar antigo */
+            width: 48px;
+            height: 48px;
+            margin-bottom: 6px;
+            image-rendering: pixelated;
+            transition: transform 0.2s ease;
         }
 
-        /* Rodapé / Barra de Status */
+        .folder:hover {
+            background-color: var(--win-folder-hover);
+            color: white;
+            border: 1px dotted #ffffff;
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .folder:hover img {
+            transform: scale(1.1) rotate(-2deg);
+        }
+
+        /* Barra de Status */
         .status-bar {
             background: #ece9d8;
             border-top: 1px solid #aca899;
-            padding: 3px 10px;
+            padding: 4px 10px;
             font-size: 11px;
-            color: #555;
+            color: #444;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ================= MODAIS DE DIÁLOGO (POPUP XP) ================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-window {
+            background: #ece9d8;
+            border: 3px solid var(--win-border);
+            border-radius: 5px 5px 0 0;
+            box-shadow: 4px 8px 25px rgba(0,0,0,0.5);
+            width: 380px;
+            max-width: 90vw;
+            animation: windowAppear 0.25s ease-out;
+        }
+
+        .modal-header {
+            background: var(--win-title-bg);
+            color: white;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 15px;
+            font-size: 12px;
+            color: #000;
+        }
+
+        .modal-footer {
+            padding: 8px 15px;
+            background: #ece9d8;
+            border-top: 1px solid #aca899;
+            text-align: right;
+        }
+
+        .modal-btn {
+            background: linear-gradient(to bottom, #ffffff, #dcd8d0);
+            border: 1px solid #7f9db9;
+            padding: 4px 15px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .modal-btn:hover { background: #316ac5; color: white; }
+
+        /* Estilos dos Menus Específicos */
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .color-card {
+            height: 40px;
+            border: 2px solid #fff;
+            box-shadow: 0 0 3px rgba(0,0,0,0.4);
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000;
+            text-align: center;
+        }
+
+        .search-results {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #7f9db9;
+            background: white;
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        .search-item {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-item a {
+            color: #0055e5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* BARRA DE TAREFAS FIXA DO WINDOWS XP NO RODAPÉ */
+        .xp-taskbar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: 30px;
+            background: linear-gradient(to bottom, #1f2f86 0%, #3165c4 10%, #1941a5 50%, #133182 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 99999;
+            border-top: 1px solid #3b8cf8;
+            user-select: none;
+        }
+
+        .start-button {
+            height: 100%;
+            background: linear-gradient(to bottom, #388e3c, #1b5e20);
+            color: white;
+            font-weight: bold;
+            font-style: italic;
+            padding: 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            box-shadow: inset 1px 1px 0 #81c784;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+        }
+
+        .start-button:hover { filter: brightness(1.15); }
+
+        .taskbar-items {
+            flex: 1;
+            display: flex;
+            padding: 0 8px;
+            gap: 4px;
+        }
+
+        .taskbar-item {
+            background: linear-gradient(to bottom, #3b8cf8, #1159d2);
+            color: white;
+            padding: 2px 10px;
+            font-size: 11px;
+            border-radius: 3px;
+            border: 1px solid #003399;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            max-width: 180px;
+        }
+
+        .taskbar-clock {
+            background: linear-gradient(to bottom, #0c82d9, #095bc6);
+            color: white;
+            padding: 0 12px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+            border-left: 1px solid #003399;
+        }
+
+        /* ================= MASCOTE E INTERAÇÃO ================= */
+        @keyframes mascotFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+
+        .mascot-wrapper {
+            position: fixed;
+            bottom: 40px;
+            right: 25px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            user-select: none;
+        }
+
+        .speech-bubble {
+            background: #ffffe1;
+            border: 1px solid #000;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 11px;
+            color: #000;
+            box-shadow: 2px 3px 10px rgba(0,0,0,0.3);
+            margin-bottom: 8px;
+            width: 210px;
+            position: relative;
+        }
+
+        .speech-bubble::after {
+            content: ''; position: absolute; bottom: -8px; right: 25px;
+            border-width: 8px 8px 0 0; border-style: solid; border-color: #ffffe1 transparent;
+        }
+
+        .mascot-btn {
+            display: block; width: 100%; text-align: left; background: #ece9d8;
+            border: 1px solid #7f9db9; padding: 4px 8px; margin-top: 4px; font-size: 11px; cursor: pointer; border-radius: 3px;
+        }
+
+        .mascot-btn:hover { background: #316ac5; color: white; }
+
+        .mascot-avatar {
+            width: 75px; height: 75px; cursor: pointer;
+            animation: mascotFloat 3s ease-in-out infinite;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
         }
     </style>
 </head>
 <body>
 
-<div class="window">
+<!-- JANELA PRINCIPAL -->
+<div class="window" id="main-window">
+    <!-- Barra de Título -->
     <div class="title-bar">
-        <span>Meus Documentos - Atividades</span>
+        <div class="title-bar-text">
+            📁 <span>Meus Documentos - Atividades Acadêmicas</span>
+        </div>
         <div class="title-buttons">
-            <span> _ □ X </span>
+            <div class="btn-win" title="Minimizar" onclick="minimizeWindow()">_</div>
+            <div class="btn-win" title="Maximizar" onclick="toggleMaximize()">□</div>
+            <div class="btn-win close" title="Fechar" onclick="minimizeWindow()">✕</div>
         </div>
     </div>
 
+    <!-- Barra de Menus com Funções Interativas -->
     <div class="toolbar">
-        Arquivo  Editar  Exibir  Favoritos  Ferramentas  Ajuda
+        <span onclick="openHelpModal()">Arquivo</span>
+        <span onclick="openEditModal()">Editar</span>
+        <span onclick="openExibirModal()">Exibir</span>
+        <span onclick="openFavoritesModal()">Favoritos</span>
+        <span onclick="openToolsModal()">Ferramentas</span>
+        <span onclick="openHelpModal()">Ajuda</span>
     </div>
 
-    <div class="content">
-        
-        <a href="https://github.com/Armasem15/testes-js" class="folder">
-            <img src="https://i.redd.it/k818zyr2z0kd1.gif" alt="Icon">
-            <span>Todas as Atividades JS (Prof. Robson)</span>
-        </a>
+    <!-- Barra de Endereço -->
+    <div class="address-bar">
+        <label>Endereço:</label>
+        <div class="address-input" id="current-path">
+            C:\Meus Documentos\1º Trimestre
+        </div>
+    </div>
 
-        <a href="https://github.com/Armasem15/carro-e-colchete" class="folder">
-            <img src="https://64.media.tumblr.com/3c8c2855b88ee98543c103a8ffe933e0/tumblr_mzsxpg4bl31r5sdyoo1_500.gifv" alt="Icon">
-            <span>carro e colchete (Prof. Robson)</span>
-        </a>
+    <!-- Sistema de Abas -->
+    <div class="tab-bar">
+        <button class="tab-button active" onclick="openTab(event, 'tab-1trimestre', '1º Trimestre')">1º Trimestre</button>
+        <button class="tab-button" onclick="openTab(event, 'tab-2trimestre', '2º Trimestre')">2º Trimestre</button>
+        <button class="tab-button" onclick="openTab(event, 'tab-3trimestre', '3º Trimestre')">3º Trimestre</button>
+        <button class="tab-button" onclick="openTab(event, 'tab-iastudio', 'Google IA Studio')">Google IA Studio</button>
+        <button class="tab-button" onclick="openTab(event, 'tab-vitinho', 'Vitinho')">Vitinho</button>
+        <button class="tab-button" onclick="openTab(event, 'tab-extras', 'Extras')">Extras</button>
+    </div>
 
+    <!-- Conteúdo das Abas -->
+    <div class="content-area">
 
-        <a href="https://github.com/Armasem15/alterar" class="folder">
-            <img src="https://media.tenor.com/9tZQu5hITlAAAAAj/leon-leon-kennedy.gif" alt="Icon">
-            <span>alterar JS (Prof. Robson)</span>
-        </a>
+        <!-- 1º TRIMESTRE -->
+        <div id="tab-1trimestre" class="tab-content active">
+            <a href="https://github.com/Armasem15/testes-js" target="_blank" class="folder" data-title="teste.js">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span>teste.js</span>
+            </a>
+            <a href="https://github.com/Armasem15/variavel.js" target="_blank" class="folder" data-title="Variavel.js">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span>Variavel.js</span>
+            </a>
+            <a href="https://github.com/Armasem15/filtro.js" target="_blank" class="folder" data-title="Filtro.js">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span>Filtro.js</span>
+            </a>
+        </div>
 
+        <!-- 2º TRIMESTRE -->
+        <div id="tab-2trimestre" class="tab-content">
+            <a href="https://github.com/Armasem15/objet2-alterar.js-substring-colchete" target="_blank" class="folder" data-title="objet2-alterar-substring">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span>objet2-alterar-substring</span>
+            </a>
+            <a href="https://gamma.app/docs/Metricas-e-Melhorias-nos-Negocios-O-Caminho-para-a-Excelencia-Con-uiepvo4wcdx64a1" target="_blank" class="folder" data-title="Gamma - Métricas">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span>Gamma - Métricas</span>
+            </a>
+            <a href="https://gamma.app/docs/Propriedade-Intelectual-O-que-e-e-por-que-importa-k496fyk2o64qie2" target="_blank" class="folder" data-title="Gamma - Propriedade Intelectual">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span>Gamma - Propriedade Intelectual</span>
+            </a>
+        </div>
 
-        <a href="https://github.com/Armasem15/bake-continue" class="folder">
-            <img src="https://i.redd.it/aopocexj4y4f1.gif" alt="Icon">
-            <span> bake continue JS (Prof. Robson)</span>
-        </a>
+        <!-- 3º TRIMESTRE -->
+        <div id="tab-3trimestre" class="tab-content">
+            <a href="https://armasem15.github.io/BIBLIOTECA-ESCOLA/index.html" target="_blank" class="folder" data-title="Gamma - Agenda Escolar">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span>BIBLIOTECA</span>
+            </a>
+            <a href="" target="_blank" class="folder" data-title="Gamma - Startups de 2026">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span></span>
+            </a>
+        </div>
 
-        <a href="https://github.com/Armasem15/cliente-e-leitura" class="folder">
-           <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUya243djNiYjMxNmcwY2NqNDB5MnF6OWxjdW8xdzE4OWM4MG4zNHhtZiZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/GdyiTQf1MCCTypZ0s2/200.gif" alt="Icon">
-            <span> Cliente e Leitura JS (Prof. Robson)</span>
-        </a>
+        <!-- GOOGLE IA STUDIO -->
+        <div id="tab-iastudio" class="tab-content">
+            <a href="" target="_blank" class="folder" data-title="Google AI Studio">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span></span>
+            </a>
+        </div>
 
+        <!-- VITINHO -->
+        <div id="tab-vitinho" class="tab-content">
+            <a href="#" class="folder" data-title="Projetos Vitinho">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span>Projetos Vitinho</span>
+            </a>
+        </div>
 
-        <a href="https://github.com/Armasem15/conjunto-de-numeros" class="folder">
-           <img src="https://fbi.cults3d.com/uploaders/14918839/illustration-file/54fb859f-2487-40c0-8695-1fc8c4dabd71/dan42gn-25a36a6e-8108-4730-b43a-0e27db3f81c3.gif" alt="Icon">
-            <span> Conjunto de numero Js (Prof. Robson)</span>
-        </a>
-
-<a href="https://github.com/Armasem15/todos-os-testes" class="folder">
-           <img src="https://i.redd.it/2cdsj5m4005d1.gif" alt="Icon">
-            <span> Testes JS (Prof. Robson)</span>
-        </a>
-
-
-        <a href="https://github.com/Armasem15/-Delta" class="folder">
-           <img src="https://i.pinimg.com/originals/d4/95/93/d49593bc102f6e50b8aa77164ccfddc1.gif" alt="Icon">
-            <span> Delta Js (Prof. Robson)</span>
-
-
-        <a href="https://github.com/Armasem15/frutas-e-arrei" class="folder">
-           <img src="https://64.media.tumblr.com/6071c0008681c369074f1b4f8041f004/tumblr_n20d2cVrGM1qfnp35o1_r3_250.gif" alt="Icon">
-            <span> Arrei Frutas JS (Prof. Robson)</span>
-        </a>
-
-
-        <a href="https://github.com/Armasem15/hello-wolrd" class="folder">
-           <img src="https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyc2V3N2EzOG43ZTgybmh2MHd1M3l3Z3phenk0YXl6ZHJ2d2Y4eW82NCZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/3ETPKsngU6VkQ/200.gif" alt="Icon">
-            <span> Hello World Js (Prof. Robson)</span>
-        </a>
-        
-        <a href="https://github.com/Armasem15/livro-ordenado" class="folder">
-           <img src="https://i.pinimg.com/originals/67/23/f5/6723f53890d821aefdd3f3c2a4ed4c09.gif" alt="Icon">
-            <span> Livro e ordenando Js (Prof. Robson)</span>
-        </a>
-
-        <a href="https://github.com/Armasem15/media" class="folder">
-           <img src="https://64.media.tumblr.com/95aacf7389bd08c8b89bf3ad5626079d/tumblr_mmprhgeuxz1s5a827o1_500.gifv" alt="Icon">
-            <span> media Js (Prof. Robson)</span>
-        </a>
-        
-        <a href="https://github.com/Armasem15/nome" class="folder">
-           <img src="https://img.itch.zone/aW1hZ2UvMzg0MDg5My8yMjkwNzA4MS5naWY=/original/Bsf3vG.gif" alt="Icon">
-            <span> filtrar nome Js (Prof. Robson)</span>
-        </a>
-
-<a href="https://github.com/Armasem15/notas" class="folder">
-           <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/776844b2-8c7e-4537-ad50-4123739a68dd/d8y1wbx-870278f6-22ba-4ee9-8f43-32de277a44f4.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi83NzY4NDRiMi04YzdlLTQ1MzctYWQ1MC00MTIzNzM5YTY4ZGQvZDh5MXdieC04NzAyNzhmNi0yMmJhLTRlZTktOGY0My0zMmRlMjc3YTQ0ZjQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.L9Jih-h1-uUc9PTvodgG9dleggJGS0yHypPJLL9nScs" alt="Icon">
-            <span> notas Js (Prof. Robson)</span>
-        </a>
-        
-        <a href="https://github.com/Armasem15/opera-es" class="folder">
-            <img src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyN3Uza3h2MDRvMjYyeWE1M2syY24xbzJvMjUzYnFlb3ZhcXRsemlycSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/NFekgiVenzohC170MF/giphy.gif" alt="Icon">
-            <span> Operações Js (Prof. Robson)</span>
-        </a>
-        
-        <a href="https://github.com/Armasem15/port" class="folder">
-            <img src="https://i.pinimg.com/originals/80/b4/1f/80b41f80d06243d9db1401baad204179.gif" alt="Icon">
-            <span> Port Js (Prof. Robson)</span>
-        </a>
-
-        <a href="https://github.com/Armasem15/variavel-e-variavel-function" class="folder">
-           <img src="https://78.media.tumblr.com/5278d0b0593f05149c950638aa8f52b1/tumblr_obvulagTuM1t51kf8o1_500.gif" alt="Icon">
-            <span>Variavel e Varivael Funcion JS (Prof. Robson)</span>
-        </a>
-
-        <a href="https://github.com/Armasem15/substring" class="folder">
-            <img src="https://i.imgur.com/K13BNxg.gif" alt="Icon">
-            <span>substring JS (Prof. Robson)</span>
-        </a>
-
-        <a href="https://github.com/Armasem15/objetos" class="folder">
-           <img src="https://i.sstatic.net/XAl64.gif" alt="Icon">
-            <span>objetos e Objeto2 JS (Prof. Robson)</span>
-        </a>
-
-        <a href="https://armasem15.github.io/figurinha-copa/index.html" class="folder">
-            <img src="https://i0.wp.com/terminaldeinformacao.com/wp-content/uploads/2017/08/07-dk-dancando.gif?resize=280%2C210&ssl=1" alt="Icon">
-            <span>figurinha da copa</span>
-        </a>
-
-        <a href="https://github.com/Armasem15/banco-de-dados-python-" class="folder">
-            <img src="https://us.v-cdn.net/5021068/uploads/WXYYTXOB1XNQ/lowspec-rider-512.gif" alt="Icon">
-            <span>Banco de Dados Python</span>
-        </a>
-
-        </a>
-
-        <a href="..." class="folder">
-            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
-            <span>...</span>
-        </a>
-
-
-        <a href="..." class="folder">
-            <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Icon">
-            <span>...</span>
-        </a>
-
-
-        <a href="..." class="folder">
-            <img src="https://i.redd.it/fg2aosfrcj6f1.gif" alt="Icon">
-            <span>...</span>
-        </a>
-
-        <a href="..." class="folder">
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/067/559/394/small/glossy-red-plastic-expanding-file-folder-for-office-and-home-document-storage-png.png" alt="Icon">
-            <span>...</span>
-        </a>
-
+        <!-- EXTRAS -->
+        <div id="tab-extras" class="tab-content">
+            <a href="#" class="folder" data-title="Links Extras">
+                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                <span>Links Extras</span>
+            </a>
+        </div>
 
     </div>
 
+    <!-- Barra de Status -->
     <div class="status-bar">
-        6 objetos selecionados
+        <span id="status-count">3 objeto(s) na pasta</span>
+        <span>Meu Computador</span>
     </div>
-
 </div>
 
-<div class="window">
-    <div class="title-bar">
-        <span>Mobile - Atividades</span>
-        <div class="title-buttons">
-            <span> _ □ X </span>
+<!-- ================= POPUPS DOS MENUS SUPERIORES ================= -->
+
+<!-- 1. POPUP EDITAR (Propriedades de Vídeo - Cores e Fundo) -->
+<div class="modal-overlay" id="modal-editar">
+    <div class="modal-window">
+        <div class="modal-header">
+            <span>Propriedades de Aparência - Estilo XP</span>
+            <span style="cursor:pointer;" onclick="closeModal('modal-editar')">✕</span>
+        </div>
+        <div class="modal-body">
+            <b>Selecione a Paleta de Cores (8 Opções):</b>
+            <div class="palette-grid">
+                <div class="color-card" style="background:#0055e5;" onclick="setTheme('classic')">Azul XP</div>
+                <div class="color-card" style="background:#5b7c3a;" onclick="setTheme('olive')">Oliva</div>
+                <div class="color-card" style="background:#808080;" onclick="setTheme('silver')">Prata</div>
+                <div class="color-card" style="background:#133c8b;" onclick="setTheme('royale')">Royale</div>
+                <div class="color-card" style="background:#1e1e1e;" onclick="setTheme('dark')">Escuro</div>
+                <div class="color-card" style="background:#d81b60;" onclick="setTheme('pink')">Rosa XP</div>
+                <div class="color-card" style="background:#008080;" onclick="setTheme('cyber')">Cyber</div>
+                <div class="color-card" style="background:#b71c1c;" onclick="setTheme('ruby')">Rubi</div>
+            </div>
+
+            <br>
+            <b>Trocar Plano de Fundo:</b><br>
+            <button class="mascot-btn" onclick="setBg('https://wallpaperbat.com/img/200968279-just-moved-over-to-linux-wanted-a-background-didnt-find-what-i-wanted-so-i-made-it-he-looms.png')">Fundo Linux He Looms</button>
+            <button class="mascot-btn" onclick="setBg('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%2(Windows_XP%2).png')">Fundo Bliss XP Clássico</button>
+            <button class="mascot-btn" onclick="setBg('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1200')">Fundo Espaço Cyber</button>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-btn" onclick="closeModal('modal-editar')">OK</button>
         </div>
     </div>
-
-    <div class="toolbar">
-        Arquivo  Editar  Exibir  Favoritos  Ferramentas  Ajuda
-    </div>
-
-    <div class="content">
-        
-        <a href="https://github.com/Armasem15/snack-expo" class="folder">
-            <img src="qrcode.png" alt="Icon">
-            <span>Robson és bueno Snack Expo - Mobile</span>
-        </a>
-
-        <a href="https://github.com/Armasem15/SnackExpo-Galeria-de-imagem" class="folder">
-            <img src="qrcode galeria.png" alt="Icon">
-            <span>Galeria de imagem Snack Expo - Mobile</span>
-        </a>
-
-
-        
-
-    </div>
-
-    <div class="status-bar">
-        6 objetos selecionados
-    </div>
-
 </div>
 
-
-        <div class="window">
-            <div class="title-bar">
-                <span> Analise - Atividades</span>
-                <div class="title-buttons">
-                    <span> _ □ X </span>
-                </div>
-            </div>
-        
-            <div class="toolbar">
-                Arquivo  Editar  Exibir  Favoritos  Ferramentas  Ajuda
-            </div>
-        
-            <div class="content">
-                
-                <a href="https://gamma.app/docs/Metricas-e-Melhorias-nos-Negocios-O-Caminho-para-a-Excelencia-Con-uiepvo4wcdx64a1" class="folder">
-                    <img src="https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyNjJpdzBvamZoOXpldmxud281ZXlhczhtMndnNXJtazhwOHpuaWtneCZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/bRCYMAUZqqg2k/200w.gif" alt="Icon">
-                    <span>Gamma - Métricas e Melhorias nos Negócios </span>
-                </a>
-        
-                <a href="https://gamma.app/docs/Propriedade-Intelectual-O-que-e-e-por-que-importa-k496fyk2o64qie2" class="folder">
-                    <img src="https://64.media.tumblr.com/a930ba4024390085fffb5a3c31379ada/1940d952c7383cb4-9f/s400x600/3bcdd2adb6824b050eb04274e9f939bd6a4bea5f.gifv" alt="Icon">
-                    <span>Gamma - Propriedade Intelectual</span>
-                </a>
-        
-            <a href="https://gamma.app/docs/Agenda-Escolar-d53bxam7tep0gwt" class="folder">
-                    <img src="https://i.redd.it/fg2aosfrcj6f1.gif" alt="Icon">
-                    <span>Gamma - App Agenda Escolar</span>
-                </a>
-        
-                <a href="https://gamma.app/docs/Startups-em-2026-Navegando-em-um-Novo-Ciclo-de-Inovacao-pxdg93o6gl4g5l0" class="folder">
-                    <img src="https://64.media.tumblr.com/2b58753fe3dfc4f034aae679a0598475/1940d952c7383cb4-58/s400x600/986d5c82531b5ebbe94b30eb4950398216ed816a.gifv" alt="Icon">
-                    <span>Gamma - Startups de 2026</span>
-        </a>
+<!-- 2. POPUP FAVORITOS (Atalhos Rápido) -->
+<div class="modal-overlay" id="modal-favoritos">
+    <div class="modal-window">
+        <div class="modal-header">
+            <span>⭐ Meus Projetos Favoritos</span>
+            <span style="cursor:pointer;" onclick="closeModal('modal-favoritos')">✕</span>
         </div>
-
-
-<div class="window">
-            <div class="title-bar">
-                <span> 2 trimestre</span>
-                <div class="title-buttons">
-                    <span> _ □ X </span>
-                </div>
+        <div class="modal-body">
+            <p>Atalhos rápidos para os principais repositórios:</p>
+            <div class="search-results">
+                <div class="search-item"><span>🚀 Gamma - Agenda Escolar</span> <a href="https://gamma.app/docs/Agenda-Escolar-d53bxam7tep0gwt" target="_blank">Abrir 🔗</a></div>
+                <div class="search-item"><span>💻 testes-js (GitHub)</span> <a href="https://github.com/Armasem15/testes-js" target="_blank">Abrir 🔗</a></div>
+                <div class="search-item"><span>💡 Startups de 2026</span> <a href="https://gamma.app/docs/Startups-em-2026-Navegando-em-um-Novo-Ciclo-de-Inovacao-pxdg93o6gl4g5l0" target="_blank">Abrir 🔗</a></div>
+                <div class="search-item"><span>🤖 Google AI Studio</span> <a href="https://aistudio.google.com/" target="_blank">Abrir 🔗</a></div>
             </div>
-        
-            <div class="toolbar">
-                Arquivo  Editar  Exibir  Favoritos  Ferramentas  Ajuda
-            </div>
-        
-            <div class="content">
-                
-                <a href="https://armasem15.github.io/locadora-filmes-e-jogos/index.html">
-                    <img src="https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyNjJpdzBvamZoOXpldmxud281ZXlhczhtMndnNXJtazhwOHpuaWtneCZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/bRCYMAUZqqg2k/200w.gif" alt="Icon">
-                    <span>Locadora </span>
-                </a>
-        
-                <a href="https://armasem15.github.io/academia/gym.html" class="folder">
-                    <img src="https://64.media.tumblr.com/a930ba4024390085fffb5a3c31379ada/1940d952c7383cb4-9f/s400x600/3bcdd2adb6824b050eb04274e9f939bd6a4bea5f.gifv" alt="Icon">
-                    <span>academia</span>
-                </a>
-        
-            <a href="https://github.com/Armasem15/gerenciamento-financeiro" class="folder">
-                    <img src="https://i.redd.it/fg2aosfrcj6f1.gif" alt="Icon">
-                    <span>Gerenciamento financeiro</span>
-                </a>
-        
-                <a href="https://github.com/Armasem15/Jogo-Ensina-programar.-Tipo-Duolingo-2" class="folder">
-                    <img src="https://64.media.tumblr.com/2b58753fe3dfc4f034aae679a0598475/1940d952c7383cb4-58/s400x600/986d5c82531b5ebbe94b30eb4950398216ed816a.gifv" alt="Icon">
-                    <span>Jogo Ensina programar. (Tipo Duolingo)</span>
-        </a>
-
-        <a href="https://github.com/Armasem15/Pet-Clinica" class="folder">
-                    <img src="https://64.media.tumblr.com/2b58753fe3dfc4f034aae679a0598475/1940d952c7383cb4-58/s400x600/986d5c82531b5ebbe94b30eb4950398216ed816a.gifv" alt="Icon">
-                    <span>Pet Clinica</span>
-        </a>
-
-        <a href="https://github.com/Armasem15/Controle-Abastecimento.-Ve-culos-" class="folder">
-                    <img src="https://64.media.tumblr.com/2b58753fe3dfc4f034aae679a0598475/1940d952c7383cb4-58/s400x600/986d5c82531b5ebbe94b30eb4950398216ed816a.gifv" alt="Icon">
-                    <span>Controle Abastecimento. (Veículos)</span>
-        </a>
-
-                 </a>
-
-        <a href="https://github.com/Armasem15/telcas" class="folder">
-                    <img src="https://64.media.tumblr.com/2b58753fe3dfc4f034aae679a0598475/1940d952c7383cb4-58/s400x600/986d5c82531b5ebbe94b30eb4950398216ed816a.gifv" alt="Icon">
-                    <span>Teclas</span>
-        </a>
-
         </div>
+        <div class="modal-footer">
+            <button class="modal-btn" onclick="closeModal('modal-favoritos')">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<!-- 3. POPUP FERRAMENTAS (Busca de Arquivos) -->
+<div class="modal-overlay" id="modal-ferramentas">
+    <div class="modal-window">
+        <div class="modal-header">
+            <span>🔍 Localizar Projetos / Arquivos</span>
+            <span style="cursor:pointer;" onclick="closeModal('modal-ferramentas')">✕</span>
+        </div>
+        <div class="modal-body">
+            <label>Digite o nome do arquivo para pesquisar:</label><br>
+            <input type="text" id="search-input" style="width:100%; padding:5px; margin-top:5px; border:1px solid #7f9db9;" onkeyup="searchFiles()" placeholder="Ex: filtro, gamma, variavel...">
+
+            <div class="search-results" id="search-results-list">
+                <div style="color:#777; font-style:italic; text-align:center; padding:10px;">Digite acima para buscar...</div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-btn" onclick="closeModal('modal-ferramentas')">Concluir</button>
+        </div>
+    </div>
+</div>
+
+<!-- 4. POPUP EXIBIR -->
+<div class="modal-overlay" id="modal-exibir">
+    <div class="modal-window">
+        <div class="modal-header">
+            <span>👁️ Modo de Exibição</span>
+            <span style="cursor:pointer;" onclick="closeModal('modal-exibir')">✕</span>
+        </div>
+        <div class="modal-body">
+            <p>Escolha como deseja visualizar os arquivos do repositório:</p>
+            <button class="mascot-btn" onclick="setViewMode('grid')">🖼️ Ícones Grandes (Grade)</button>
+            <button class="mascot-btn" onclick="setViewMode('list')">📄 Lista Detalhada</button>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-btn" onclick="closeModal('modal-exibir')">Aplicar</button>
+        </div>
+    </div>
+</div>
+
+<!-- 5. POPUP AJUDA -->
+<div class="modal-overlay" id="modal-ajuda">
+    <div class="modal-window">
+        <div class="modal-header">
+            <span>❓ Ajuda do Repositório XP</span>
+            <span style="cursor:pointer;" onclick="closeModal('modal-ajuda')">✕</span>
+        </div>
+        <div class="modal-body">
+            <b>Como usar este site:</b>
+            <ul style="padding-left: 20px; line-height: 1.5;">
+                <li>Navegue pelas <b>Abas</b> superiores para filtrar por trimestre.</li>
+                <li>Clique duas vezes ou abra as pastas para acessar seus códigos.</li>
+                <li>Use o **Mascote XP** no canto inferior direito para ouvir músicas ou ver dicas.</li>
+                <li>Altere o visual do site pelo menu <b>Editar</b>.</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-btn" onclick="closeModal('modal-ajuda')">Entendi!</button>
+        </div>
+    </div>
+</div>
+
+<!-- BARRA DE TAREFAS XP FIXA ABAIXO -->
+<div class="xp-taskbar">
+    <div class="start-button" onclick="openHelpModal()">
+        <span>start</span>
+    </div>
+    <div class="taskbar-items">
+        <div class="taskbar-item" id="taskbar-window-btn" onclick="restoreWindow()">
+            📁 <span>Meus Documentos...</span>
+        </div>
+    </div>
+    <div class="taskbar-clock" id="xp-clock">
+        12:00 PM
+    </div>
+</div>
+
+<!-- COMPONENTE DO MASCOTE -->
+<div class="mascot-wrapper">
+    <div class="speech-bubble" id="mascot-bubble">
+        <div style="font-weight:bold; border-bottom:1px solid #ccc; margin-bottom:4px; color:#003399;">Assistente XP</div>
+        <div id="mascot-content-area">
+            <button class="mascot-btn" onclick="openToolsModal()">🔍 Pesquisar Arquivo</button>
+            <button class="mascot-btn" onclick="openFavoritesModal()">⭐ Ver Favoritos</button>
+        </div>
+    </div>
+    <div id="mascot-container" class="mascot-avatar" onclick="toggleMascotMenu()">
+        <img src="https://i.pinimg.com/originals/33/66/a6/3366a6f685197fd6c16fc48c08cca841.gif"  alt="Mascote XP" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+</div>
+
+<script>
+    // ================= RELÓGIO DA BARRA DE TAREFAS =================
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('xp-clock').textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // ================= MINIMIZAR E MAXIMIZAR JANELA =================
+    const mainWindow = document.getElementById('main-window');
+
+    function minimizeWindow() {
+        mainWindow.classList.add('minimized');
+    }
+
+    function restoreWindow() {
+        if (mainWindow.classList.contains('minimized')) {
+            mainWindow.classList.remove('minimized');
+        } else {
+            minimizeWindow();
+        }
+    }
+
+    function toggleMaximize() {
+        if (mainWindow.style.maxWidth === '100%') {
+            mainWindow.style.maxWidth = '960px';
+        } else {
+            mainWindow.style.maxWidth = '100%';
+        }
+    }
+
+    // ================= CONTROLE DE POPUPS/MODAIS =================
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+    function openEditModal() { document.getElementById('modal-editar').style.display = 'flex'; }
+    function openFavoritesModal() { document.getElementById('modal-favoritos').style.display = 'flex'; }
+    function openToolsModal() { document.getElementById('modal-ferramentas').style.display = 'flex'; }
+    function openExibirModal() { document.getElementById('modal-exibir').style.display = 'flex'; }
+    function openHelpModal() { document.getElementById('modal-ajuda').style.display = 'flex'; }
+
+    // ================= MUDAR PALETA DE CORES (8 PALETAS) =================
+    function setTheme(theme) {
+        const root = document.documentElement;
+        if (theme === 'classic') {
+            root.style.setProperty('--win-border', '#0055e5');
+            root.style.setProperty('--win-title-bg', 'linear-gradient(to bottom, #0058e4, #1159d2)');
+            root.style.setProperty('--win-folder-hover', '#316ac5');
+        } else if (theme === 'olive') {
+            root.style.setProperty('--win-border', '#5b7c3a');
+            root.style.setProperty('--win-title-bg', 'linear-gradient(to bottom, #80a050, #5b7c3a)');
+            root.style.setProperty('--win-folder-hover', '#6b8e23');
+        } else if (theme === 'silver') {
+            root.style.setProperty('--win-border', '#707070');
+            root.style.setProperty('--win-title-bg', 'linear-gradient(to bottom, #b0b0b0, #707070)');
+            root.style.setProperty('--win-folder-hover', '#808080');
+        } else if (theme === 'royale') {
+            root.style.setProperty('--win-border', '#133c8b');
+            root.style.setProperty('--win-title-bg', 'linear-gradient(to bottom, #1e52ba, #0d2a6b)');
+            root.style.setProperty('--win-folder-hover', '#1e52ba');
+        } else if (theme === 'dark') {
+            root.style.setProperty('--win-border', '#333333');
+            root.style.setProperty('--win-title-bg', 'linear-gradient(to bottom, #444444, #111111)');
+            root.style.setProperty('--win-folder-hover', '#555555');
+        } else if (theme === 'pink') {
+            root.style.setProperty('--win-border', '#d81b60');
+            root.style.setProperty('--win-title-bg', 'linear-gradient(to bottom, #ff4081, #c2185b)');
+            root.style.setProperty('--win-folder-hover', '#e91e63');
+        } else if (theme === 'cyber') {
+            root.style.setProperty('--win-border', '#008080');
+            root.style.setProperty('--win-title-bg', 'linear-gradient(to bottom, #00bcd4, #006064)');
+            root.style.setProperty('--win-folder-hover', '#00acc1');
+        } else if (theme === 'ruby') {
+            root.style.setProperty('--win-border', '#b71c1c');
+            root.style.setProperty('--win-title-bg', 'linear-gradient(to bottom, #e53935, #8e0000)');
+            root.style.setProperty('--win-folder-hover', '#c62828');
+        }
+    }
+
+    function setBg(url) {
+        document.body.style.backgroundImage = `url('${url}')`;
+    }
+
+    // ================= FERRAMENTA DE BUSCA =================
+    function searchFiles() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const resultsContainer = document.getElementById('search-results-list');
+        const allFolders = document.querySelectorAll('.folder');
+
+        if (query.trim() === '') {
+            resultsContainer.innerHTML = `<div style="color:#777; font-style:italic; text-align:center; padding:10px;">Digite acima para buscar...</div>`;
+            return;
+        }
+
+        let resultsHTML = '';
+        let found = false;
+
+        allFolders.forEach(folder => {
+            const title = folder.getAttribute('data-title') || folder.innerText;
+            const href = folder.getAttribute('href');
+
+            if (title.toLowerCase().includes(query)) {
+                found = true;
+                resultsHTML += `
+                    <div class="search-item">
+                        <span>📁 ${title}</span>
+                        <a href="${href}" target="_blank">Abrir 🔗</a>
+                    </div>
+                `;
+            }
+        });
+
+        if (found) {
+            resultsContainer.innerHTML = resultsHTML;
+        } else {
+            resultsContainer.innerHTML = `<div style="color:#d32f2f; text-align:center; padding:10px;">Nenhum arquivo encontrado com esse nome.</div>`;
+        }
+    }
+
+    // ================= MODO DE EXIBIÇÃO (GRADE / LISTA) =================
+    function setViewMode(mode) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => {
+            if (mode === 'list') {
+                content.classList.add('list-view');
+            } else {
+                content.classList.remove('list-view');
+            }
+        });
+        closeModal('modal-exibir');
+    }
+
+    // ================= NAVEGAÇÃO ENTRE ABAS =================
+    function openTab(evt, tabId, pathName) {
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+
+        const tabButtons = document.getElementsByClassName("tab-button");
+        for (let i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove("active");
+        }
+
+        const activeTab = document.getElementById(tabId);
+        activeTab.classList.add("active");
+        evt.currentTarget.classList.add("active");
+
+        document.getElementById("current-path").textContent = "C:\\Meus Documentos\\" + pathName;
+
+        const itemsCount = activeTab.querySelectorAll('.folder').length;
+        document.getElementById("status-count").textContent = itemsCount + " objeto(s) na pasta";
+    }
+</script>
+
+</body>
+</html>
