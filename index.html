@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Repositório XP - Atividades Acadêmicas</title>
+    <title>Meu Repositório - Atividades Técnicos</title>
     <style>
         /* Reset e Fundo */
         * {
@@ -11,7 +11,7 @@
         }
 
         :root {
-            /* Cores padrão: Azul Clássico XP */
+            /* Paleta Padrão: Azul Clássico XP */
             --win-border: #0055e5;
             --win-title-bg: linear-gradient(to bottom, #0058e4 0%, #3b8cf8 10%, #1e71f2 50%, #1159d2 100%);
             --win-tab-active: #0055e5;
@@ -28,7 +28,7 @@
             transition: background 0.3s ease;
         }
 
-        /* Animações */
+        /* Animações da Janela */
         @keyframes windowAppear {
             0% { opacity: 0; transform: scale(0.96) translateY(15px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
@@ -45,7 +45,7 @@
             border: 3px solid var(--win-border);
             border-radius: 8px 8px 0 0;
             box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.6);
-            max-width: 960px;
+            max-width: 1000px;
             margin: 0 auto;
             overflow: hidden;
             animation: windowAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -161,6 +161,115 @@
             color: #222;
         }
 
+        /* SEÇÃO SUPERIOR: CABEÇALHO DE PERFIL (DIREITA) */
+        .profile-header-container {
+            display: flex;
+            justify-content: flex-end;
+            background: #f7f5ef;
+            border-bottom: 1px solid #aca899;
+            padding: 10px 15px;
+        }
+
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+            max-width: 320px;
+        }
+
+        .profile-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 4px;
+            border: 2px solid var(--win-border);
+            object-fit: cover;
+            margin-bottom: 6px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .profile-name {
+            font-weight: bold;
+            font-size: 14px;
+            color: #003399;
+            margin: 0;
+        }
+
+        .profile-subject {
+            font-size: 12px;
+            font-weight: bold;
+            color: #444;
+            margin: 2px 0;
+        }
+
+        .profile-desc {
+            font-size: 11px;
+            color: #666;
+            margin: 2px 0 0 0;
+            line-height: 1.3;
+        }
+
+        /* LAYOUT COM PAINEL LATERAL E ÁREA DE CONTEÚDO */
+        .window-body-layout {
+            display: flex;
+            background: #ffffff;
+            min-height: 380px;
+        }
+
+        /* CAIXA DA ESQUERDA (ESTILO XP TAREFAS) */
+        .left-sidebar {
+            width: 210px;
+            background: #d6dff7;
+            border-right: 1px solid #96abdd;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .xp-box {
+            background: #ffffff;
+            border: 1px solid #6375d6;
+            border-radius: 4px 4px 0 0;
+            overflow: hidden;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .xp-box-title {
+            background: linear-gradient(to right, #215dc6, #6393e6);
+            color: white;
+            font-weight: bold;
+            font-size: 11px;
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .xp-box-content {
+            padding: 10px;
+            font-size: 11px;
+        }
+
+        .xp-box-content a {
+            color: #0055e5;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            word-break: break-all;
+        }
+
+        .xp-box-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* ÁREA PRINCIPAL DA DIREITA */
+        .main-content-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
         /* Sistema de Abas */
         .tab-bar {
             display: flex;
@@ -203,8 +312,8 @@
         /* Conteúdo Principal */
         .content-area {
             background: #ffffff;
-            min-height: 380px;
             padding: 20px;
+            flex: 1;
         }
 
         @keyframes tabFade {
@@ -214,7 +323,7 @@
 
         .tab-content {
             display: none;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 15px;
             align-content: start;
         }
@@ -348,7 +457,6 @@
 
         .modal-btn:hover { background: #316ac5; color: white; }
 
-        /* Estilos dos Menus Específicos */
         .palette-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -395,7 +503,7 @@
             font-weight: bold;
         }
 
-        /* BARRA DE TAREFAS FIXA DO WINDOWS XP NO RODAPÉ */
+        /* BARRA DE TAREFAS FIXA DO WINDOWS XP */
         .xp-taskbar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -459,10 +567,15 @@
             border-left: 1px solid #003399;
         }
 
-        /* ================= MASCOTE E INTERAÇÃO ================= */
+        /* ================= MASCOTE E INTERAÇÕES ================= */
         @keyframes mascotFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-7px); }
+        }
+
+        @keyframes bubblePop {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .mascot-wrapper {
@@ -487,24 +600,111 @@
             margin-bottom: 8px;
             width: 210px;
             position: relative;
+            animation: bubblePop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .speech-bubble::after {
-            content: ''; position: absolute; bottom: -8px; right: 25px;
-            border-width: 8px 8px 0 0; border-style: solid; border-color: #ffffe1 transparent;
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 25px;
+            border-width: 8px 8px 0 0;
+            border-style: solid;
+            border-color: #ffffe1 transparent;
+            display: block;
+            width: 0;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 24px;
+            border-width: 9px 9px 0 0;
+            border-style: solid;
+            border-color: #000 transparent;
+            display: block;
+            width: 0;
+        }
+
+        .mascot-menu-title {
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+            color: #003399;
         }
 
         .mascot-btn {
-            display: block; width: 100%; text-align: left; background: #ece9d8;
-            border: 1px solid #7f9db9; padding: 4px 8px; margin-top: 4px; font-size: 11px; cursor: pointer; border-radius: 3px;
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #ece9d8;
+            border: 1px solid #7f9db9;
+            padding: 5px 8px;
+            margin-top: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.15s;
         }
 
-        .mascot-btn:hover { background: #316ac5; color: white; }
+        .mascot-btn:hover {
+            background: #316ac5;
+            color: white;
+            border-color: #003399;
+        }
 
         .mascot-avatar {
-            width: 75px; height: 75px; cursor: pointer;
+            width: 75px;
+            height: 75px;
+            cursor: pointer;
             animation: mascotFloat 3s ease-in-out infinite;
             filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
+            transition: transform 0.15s ease;
+        }
+
+        .mascot-avatar:hover {
+            transform: scale(1.1) rotate(4deg);
+        }
+
+        /* Pop-up do GIF do Mascote */
+        .media-popup-window {
+            position: fixed;
+            bottom: 140px;
+            right: 25px;
+            width: 250px;
+            background: #ece9d8;
+            border: 2px solid #0055e5;
+            border-radius: 5px 5px 0 0;
+            box-shadow: 4px 6px 15px rgba(0,0,0,0.5);
+            z-index: 10000;
+            display: none;
+            animation: bubblePop 0.25s ease-out;
+        }
+
+        .media-popup-header {
+            background: linear-gradient(to bottom, #0058e4, #1159d2);
+            color: white;
+            padding: 3px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .media-popup-body {
+            padding: 8px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .media-popup-body img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -515,7 +715,7 @@
     <!-- Barra de Título -->
     <div class="title-bar">
         <div class="title-bar-text">
-            📁 <span>Meus Documentos - Atividades Acadêmicas</span>
+             <span>Meus Documentos - Atividades Acadêmicas</span>
         </div>
         <div class="title-buttons">
             <div class="btn-win" title="Minimizar" onclick="minimizeWindow()">_</div>
@@ -524,7 +724,7 @@
         </div>
     </div>
 
-    <!-- Barra de Menus com Funções Interativas -->
+    <!-- Barra de Menus -->
     <div class="toolbar">
         <span onclick="openHelpModal()">Arquivo</span>
         <span onclick="openEditModal()">Editar</span>
@@ -538,107 +738,100 @@
     <div class="address-bar">
         <label>Endereço:</label>
         <div class="address-input" id="current-path">
-            C:\Meus Documentos\1º Trimestre
+            C:\Meus Documentos\projetos do balacobaco
         </div>
     </div>
 
-    <!-- Sistema de Abas -->
-    <div class="tab-bar">
-        <button class="tab-button active" onclick="openTab(event, 'tab-1trimestre', '1º Trimestre')">1º Trimestre</button>
-        <button class="tab-button" onclick="openTab(event, 'tab-2trimestre', '2º Trimestre')">2º Trimestre</button>
-        <button class="tab-button" onclick="openTab(event, 'tab-3trimestre', '3º Trimestre')">3º Trimestre</button>
-        <button class="tab-button" onclick="openTab(event, 'tab-iastudio', 'Google IA Studio')">Google IA Studio</button>
-        <button class="tab-button" onclick="openTab(event, 'tab-vitinho', 'Vitinho')">Vitinho</button>
-        <button class="tab-button" onclick="openTab(event, 'tab-extras', 'Extras')">Extras</button>
+    <!-- ÁREA DE PERFIL NO CANTO SUPERIOR DIREITO -->
+    <div class="profile-header-container">
+        <div class="profile-card">
+            <!-- Substitua a foto pela URL da sua imagem -->
+            <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-img">
+            <h3 class="profile-name">Marcos Moacir</h3>
+            <div class="profile-subject">Matéria: Programação Web / Dev</div>
+            <p class="profile-desc">Repositório de atividades, projetos JavaScript e apresentações acadêmicas.</p>
+        </div>
     </div>
 
-    <!-- Conteúdo das Abas -->
-    <div class="content-area">
+    <!-- CORPO DA JANELA COM PAINEL LATERAL ESQUERDO E CONTEÚDO DIREITO -->
+    <div class="window-body-layout">
 
-      <!-- 3º TRIMESTRE -->
-        <div id="tab-3trimestre" class="tab-content">
-            <a href="https://novo-pr-conselho.vercel.app" target="_blank" class="folder" data-title="3 trimestre">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>PRE-CONSELHO</span>
-            </a>
-            <a href="https://biblioteca-escola-gray.vercel.app" target="_blank" class="folder" data-title="3 trimestre">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>BIBLIOTECA</span>
-            </a>
-            
- <a href="https://feira-da-lua.vercel.app" target="_blank" class="folder" data-title="3 trimestre">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>FEIRA DA LUA</span>
-            </a>
-            <a href="https://gest-o-espetinhos.vercel.app" target="_blank" class="folder" data-title="3 trimestre">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>GESTAO FEIRA ESPETINHOS</span>
-            </a>
+        <!-- CAIXA DA ESQUERDA (LINK E DETALHES) -->
+        <div class="left-sidebar">
+            <div class="xp-box">
+                <div class="xp-box-title">🔗 Link do Repositório</div>
+                <div class="xp-box-content">
+                    <p style="margin-top:0;">Acesse meu perfil no GitHub:</p>
+                    <a href="https://github.com/Armasem15" target="_blank" rel="noopener noreferrer">github.com/Armasem15</a>
+                </div>
+            </div>
+
+            <div class="xp-box">
+                <div class="xp-box-title">ℹ Informações</div>
+                <div class="xp-box-content">
+                    <b>Sistema:</b> Windows XP Style<br>
+                    <b>Status:</b> Ativo
+                </div>
+            </div>
         </div>
 
-            
+        <!-- CONTEÚDO PRINCIPAL (DIREITA) -->
+        <div class="main-content-right">
+            <!-- Sistema de Abas -->
+            <div class="tab-bar">
+                <button class="tab-button active" onclick="openTab(event, 'tab-3trimestre', '3º Trimestre')">3º Trimestre</button>
+                <button class="tab-button" onclick="openTab(event, 'tab-vitinho', 'Vitinho')">Vitinho</button>
+                <button class="tab-button" onclick="openTab(event, 'tab-extras', 'Extras')">Extras</button>
+            </div>
 
-        <!-- 2º TRIMESTRE -->
-        <div id="tab-2trimestre" class="tab-content">
-            <a href="https://github.com/Armasem15/objet2-alterar.js-substring-colchete" target="_blank" class="folder" data-title="objet2-alterar-substring">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>objet2-alterar-substring</span>
-            </a>
-            <a href="https://gamma.app/docs/Metricas-e-Melhorias-nos-Negocios-O-Caminho-para-a-Excelencia-Con-uiepvo4wcdx64a1" target="_blank" class="folder" data-title="Gamma - Métricas">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>Gamma - Métricas</span>
-            </a>
-            <a href="https://gamma.app/docs/Propriedade-Intelectual-O-que-e-e-por-que-importa-k496fyk2o64qie2" target="_blank" class="folder" data-title="Gamma - Propriedade Intelectual">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>Gamma - Propriedade Intelectual</span>
-            </a>
-        </div>
+            <!-- Conteúdo das Abas -->
+            <div class="content-area">
 
-        <!-- ... -->
-        <div id="tab-3trimestre" class="tab-content">
-            <a href="https://novo-pr-conselho.vercel.app" target="_blank" class="folder" data-title="3 trimestre">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>...</span>
-            </a>
-            <a href="https://biblioteca-escola-gray.vercel.app" target="_blank" class="folder" data-title="3 trimestre">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>...</span>
-            </a>
-            
- <a href="https://feira-da-lua.vercel.app" target="_blank" class="folder" data-title="3 trimestre">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>...</span>
-            </a>
-            <a href="https://gest-o-espetinhos.vercel.app" target="_blank" class="folder" data-title="3 trimestre">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>...</span>
-            </a>
+                <!-- 3º TRIMESTRE -->
+                <div id="tab-3trimestre" class="tab-content active">
+
+        <a href="https://novo-pr-conselho.vercel.app" class="folder">
+            <img src="https://64.media.tumblr.com/3c8c2855b88ee98543c103a8ffe933e0/tumblr_mzsxpg4bl31r5sdyoo1_500.gifv" alt="Icon">
+            <span>PRÉ CONSELHO</span>
+        </a>
+
+        <a href="https://biblioteca-escola-gray.vercel.app" class="folder">
+            <img src="https://64.media.tumblr.com/3c8c2855b88ee98543c103a8ffe933e0/tumblr_mzsxpg4bl31r5sdyoo1_500.gifv" alt="Icon">
+            <span>BIBLIOTECA</span>
+        </a>
 
 
-        </div>
+        <a href="https://feira-da-lua.vercel.app" class="folder">
+            <img src="https://64.media.tumblr.com/3c8c2855b88ee98543c103a8ffe933e0/tumblr_mzsxpg4bl31r5sdyoo1_500.gifv" alt="Icon">
+            <span>FEIRA DA LUA</span>
+        </a>
 
-        <!-- GOOGLE IA STUDIO -->
-        <div id="tab-iastudio" class="tab-content">
-            <a href="" target="_blank" class="folder" data-title="Google AI Studio">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span></span>
-            </a>
-        </div>
 
-        <!-- VITINHO -->
-        <div id="tab-vitinho" class="tab-content">
-            <a href="#" class="folder" data-title="Projetos Vitinho">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>Projetos Vitinho</span>
-            </a>
-        </div>
+        <a href="https://gest-o-espetinhos.vercel.app" class="folder">
+            <img src="https://64.media.tumblr.com/3c8c2855b88ee98543c103a8ffe933e0/tumblr_mzsxpg4bl31r5sdyoo1_500.gifv" alt="Icon">
+            <span>GESTÃO FEIRA ESPETINHOS</span>
+        </a>
 
-        <!-- EXTRAS -->
-        <div id="tab-extras" class="tab-content">
-            <a href="https://armasem15.github.io/chat/index.html" class="folder" data-title="Links Extras">
-                <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
-                <span>chat15</span>
-            </a>
+
+
+
+                <!-- VITINHO -->
+                <div id="tab-vitinho" class="tab-content">
+                    <a href="#" class="folder" data-title="Projetos Vitinho">
+                        <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                        <span>Projetos Vitinho</span>
+                    </a>
+                </div>
+
+                <!-- EXTRAS -->
+                <div id="tab-extras" class="tab-content">
+                    <a href="#" class="folder" data-title="Links Extras">
+                        <img src="https://i.redd.it/windows-xp-folder-vs-macos-10-x-folder-v0-tjaexy1o8wqc1.png?width=1024&format=png&auto=webp&s=282618a1f8aa6d050635174e1fc6abcfdb2f2c86" alt="Pasta">
+                        <span>Links Extras</span>
+                    </a>
+                </div>
+
+            </div>
         </div>
 
     </div>
@@ -652,7 +845,7 @@
 
 <!-- ================= POPUPS DOS MENUS SUPERIORES ================= -->
 
-<!-- 1. POPUP EDITAR (Propriedades de Vídeo - Cores e Fundo) -->
+<!-- 1. POPUP EDITAR -->
 <div class="modal-overlay" id="modal-editar">
     <div class="modal-window">
         <div class="modal-header">
@@ -675,7 +868,7 @@
             <br>
             <b>Trocar Plano de Fundo:</b><br>
             <button class="mascot-btn" onclick="setBg('https://wallpaperbat.com/img/200968279-just-moved-over-to-linux-wanted-a-background-didnt-find-what-i-wanted-so-i-made-it-he-looms.png')">Fundo Linux He Looms</button>
-            <button class="mascot-btn" onclick="setBg('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%2(Windows_XP%2).png')">Fundo Bliss XP Clássico</button>
+            <button class="mascot-btn" onclick="setBg('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png')">Fundo Bliss XP Clássico</button>
             <button class="mascot-btn" onclick="setBg('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1200')">Fundo Espaço Cyber</button>
         </div>
         <div class="modal-footer">
@@ -684,7 +877,7 @@
     </div>
 </div>
 
-<!-- 2. POPUP FAVORITOS (Atalhos Rápido) -->
+<!-- 2. POPUP FAVORITOS -->
 <div class="modal-overlay" id="modal-favoritos">
     <div class="modal-window">
         <div class="modal-header">
@@ -694,10 +887,10 @@
         <div class="modal-body">
             <p>Atalhos rápidos para os principais repositórios:</p>
             <div class="search-results">
-                <div class="search-item"><span>🚀 Gamma - Agenda Escolar</span> <a href="https://gamma.app/docs/Agenda-Escolar-d53bxam7tep0gwt" target="_blank">Abrir 🔗</a></div>
-                <div class="search-item"><span>💻 testes-js (GitHub)</span> <a href="https://github.com/Armasem15/testes-js" target="_blank">Abrir 🔗</a></div>
-                <div class="search-item"><span>💡 Startups de 2026</span> <a href="https://gamma.app/docs/Startups-em-2026-Navegando-em-um-Novo-Ciclo-de-Inovacao-pxdg93o6gl4g5l0" target="_blank">Abrir 🔗</a></div>
-                <div class="search-item"><span>🤖 Google AI Studio</span> <a href="https://aistudio.google.com/" target="_blank">Abrir 🔗</a></div>
+                <div class="search-item"><span> Gamma - Agenda Escolar</span> <a href="https://gamma.app/docs/Agenda-Escolar-d53bxam7tep0gwt" target="_blank">Abrir 🔗</a></div>
+                <div class="search-item"><span> testes-js (GitHub)</span> <a href="https://github.com/Armasem15/testes-js" target="_blank">Abrir 🔗</a></div>
+                <div class="search-item"><span> Startups de 2026</span> <a href="https://gamma.app/docs/Startups-em-2026-Navegando-em-um-Novo-Ciclo-de-Inovacao-pxdg93o6gl4g5l0" target="_blank">Abrir 🔗</a></div>
+                <div class="search-item"><span> Google AI Studio</span> <a href="https://aistudio.google.com/" target="_blank">Abrir 🔗</a></div>
             </div>
         </div>
         <div class="modal-footer">
@@ -706,11 +899,11 @@
     </div>
 </div>
 
-<!-- 3. POPUP FERRAMENTAS (Busca de Arquivos) -->
+<!-- 3. POPUP FERRAMENTAS -->
 <div class="modal-overlay" id="modal-ferramentas">
     <div class="modal-window">
         <div class="modal-header">
-            <span>🔍 Localizar Projetos / Arquivos</span>
+            <span> Localizar Projetos / Arquivos</span>
             <span style="cursor:pointer;" onclick="closeModal('modal-ferramentas')">✕</span>
         </div>
         <div class="modal-body">
@@ -731,13 +924,13 @@
 <div class="modal-overlay" id="modal-exibir">
     <div class="modal-window">
         <div class="modal-header">
-            <span>👁️ Modo de Exibição</span>
+            <span> Modo de Exibição</span>
             <span style="cursor:pointer;" onclick="closeModal('modal-exibir')">✕</span>
         </div>
         <div class="modal-body">
             <p>Escolha como deseja visualizar os arquivos do repositório:</p>
-            <button class="mascot-btn" onclick="setViewMode('grid')">🖼️ Ícones Grandes (Grade)</button>
-            <button class="mascot-btn" onclick="setViewMode('list')">📄 Lista Detalhada</button>
+            <button class="mascot-btn" onclick="setViewMode('grid')"> Ícones Grandes (Grade)</button>
+            <button class="mascot-btn" onclick="setViewMode('list')"> Lista Detalhada</button>
         </div>
         <div class="modal-footer">
             <button class="modal-btn" onclick="closeModal('modal-exibir')">Aplicar</button>
@@ -749,7 +942,7 @@
 <div class="modal-overlay" id="modal-ajuda">
     <div class="modal-window">
         <div class="modal-header">
-            <span>❓ Ajuda do Repositório XP</span>
+            <span>❓ Ajuda do Repositório M.M 15</span>
             <span style="cursor:pointer;" onclick="closeModal('modal-ajuda')">✕</span>
         </div>
         <div class="modal-body">
@@ -757,8 +950,8 @@
             <ul style="padding-left: 20px; line-height: 1.5;">
                 <li>Navegue pelas <b>Abas</b> superiores para filtrar por trimestre.</li>
                 <li>Clique duas vezes ou abra as pastas para acessar seus códigos.</li>
-                <li>Use o **Mascote XP** no canto inferior direito para ouvir músicas ou ver dicas.</li>
-                <li>Altere o visual do site pelo menu <b>Editar</b>.</li>
+                <li>Use o <b>Mascote XP</b> no canto inferior direito para ouvir música, ver dicas ou abrir GIFs.</li>
+                <li>Altere a cor do site pelo menu <b>Editar</b>.</li>
             </ul>
         </div>
         <div class="modal-footer">
@@ -767,14 +960,25 @@
     </div>
 </div>
 
-<!-- BARRA DE TAREFAS XP FIXA ABAIXO -->
+<!-- POP-UP DE MÍDIA (GIF / IMAGEM DO MASCOTE) -->
+<div class="media-popup-window" id="media-popup">
+    <div class="media-popup-header">
+        <span>Visualizador de Imagem XP</span>
+        <span style="cursor:pointer;" onclick="closeMediaPopup()">✕</span>
+    </div>
+    <div class="media-popup-body">
+        <img id="popup-image" src="https://i.pinimg.com/originals/33/66/a6/3366a6f685197fd6c16fc48c08cca841.gif" alt="GIF Retrô">
+    </div>
+</div>
+
+<!-- BARRA DE TAREFAS XP FIXA -->
 <div class="xp-taskbar">
     <div class="start-button" onclick="openHelpModal()">
         <span>start</span>
     </div>
     <div class="taskbar-items">
         <div class="taskbar-item" id="taskbar-window-btn" onclick="restoreWindow()">
-            📁 <span>Meus Documentos...</span>
+             <span>Meus Documentos...</span>
         </div>
     </div>
     <div class="taskbar-clock" id="xp-clock">
@@ -782,19 +986,23 @@
     </div>
 </div>
 
-<!-- COMPONENTE DO MASCOTE -->
+<!-- COMPONENTE COMPLETO DO MASCOTE -->
 <div class="mascot-wrapper">
     <div class="speech-bubble" id="mascot-bubble">
-        <div style="font-weight:bold; border-bottom:1px solid #ccc; margin-bottom:4px; color:#003399;">Assistente XP</div>
+        <div class="mascot-menu-title">Assistente XP</div>
         <div id="mascot-content-area">
-            <button class="mascot-btn" onclick="openToolsModal()">🔍 Pesquisar Arquivo</button>
-            <button class="mascot-btn" onclick="openFavoritesModal()">⭐ Ver Favoritos</button>
+            <button class="mascot-btn" onclick="actTalk()"> Me fale uma dica</button>
+            <button class="mascot-btn" onclick="actShowGif()"> Mostrar GIF Retrô</button>
+            <button class="mascot-btn" onclick="toggleMusic()"> Tocar / Parar Música</button>
         </div>
     </div>
     <div id="mascot-container" class="mascot-avatar" onclick="toggleMascotMenu()">
-        <img src="https://i.pinimg.com/originals/33/66/a6/3366a6f685197fd6c16fc48c08cca841.gif"  alt="Mascote XP" style="width: 100%; height: 100%; object-fit: contain;">
+        <!-- A Sprite do Mascote é inserida via JavaScript -->
     </div>
 </div>
+
+<!-- AUDIO PLAYER PARA MÚSICA RETRÔ DO MASCOTE -->
+<audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a85e13.mp3?filename=chiptune-groove-10883.mp3"></audio>
 
 <script>
     // ================= RELÓGIO DA BARRA DE TAREFAS =================
@@ -822,7 +1030,7 @@
 
     function toggleMaximize() {
         if (mainWindow.style.maxWidth === '100%') {
-            mainWindow.style.maxWidth = '960px';
+            mainWindow.style.maxWidth = '1000px';
         } else {
             mainWindow.style.maxWidth = '100%';
         }
@@ -950,6 +1158,146 @@
 
         const itemsCount = activeTab.querySelectorAll('.folder').length;
         document.getElementById("status-count").textContent = itemsCount + " objeto(s) na pasta";
+
+        // Reação do Mascote ao trocar de aba
+        if (!isPlayingMusic) {
+            setSprite('thinking');
+            setTimeout(() => {
+                setSprite('normal');
+            }, 1200);
+        }
+    }
+
+    // ================= SISTEMA COMPLETO DE SPRITES E AÇÕES DO MASCOTE =================
+    const mascotSprites = {
+        normal: `<svg viewBox="0 0 100 100" fill="none">
+            <rect x="25" y="30" width="50" height="45" rx="10" fill="#4CAF50" stroke="#1B5E20" stroke-width="4"/>
+            <circle cx="40" cy="48" r="6" fill="#FFF"/><circle cx="40" cy="48" r="3" fill="#000"/>
+            <circle cx="60" cy="48" r="6" fill="#FFF"/><circle cx="60" cy="48" r="3" fill="#000"/>
+            <path d="M42 62 Q50 68 58 62" stroke="#000" stroke-width="3" fill="none"/>
+            <line x1="50" y1="30" x2="50" y2="15" stroke="#1B5E20" stroke-width="4"/>
+            <circle cx="50" cy="12" r="5" fill="#FFEB3B"/>
+        </svg>`,
+
+        happy: `<svg viewBox="0 0 100 100" fill="none">
+            <rect x="25" y="28" width="50" height="47" rx="10" fill="#81C784" stroke="#1B5E20" stroke-width="4"/>
+            <path d="M35 48 Q40 42 45 48" stroke="#000" stroke-width="3" fill="none"/>
+            <path d="M55 48 Q60 42 65 48" stroke="#000" stroke-width="3" fill="none"/>
+            <ellipse cx="50" cy="62" rx="8" ry="6" fill="#D32F2F"/>
+            <line x1="50" y1="28" x2="50" y2="12" stroke="#1B5E20" stroke-width="4"/>
+            <circle cx="50" cy="10" r="7" fill="#FF5722"/>
+        </svg>`,
+
+        showing: `<svg viewBox="0 0 100 100" fill="none">
+            <rect x="20" y="30" width="50" height="45" rx="10" fill="#2196F3" stroke="#0D47A1" stroke-width="4"/>
+            <circle cx="35" cy="48" r="6" fill="#FFF"/><circle cx="35" cy="48" r="3" fill="#000"/>
+            <circle cx="55" cy="48" r="6" fill="#FFF"/><circle cx="55" cy="48" r="3" fill="#000"/>
+            <path d="M37 62 Q45 68 53 62" stroke="#000" stroke-width="3" fill="none"/>
+            <rect x="62" y="45" width="28" height="22" fill="#FFF" stroke="#000" stroke-width="2"/>
+            <circle cx="76" cy="56" r="4" fill="#FF9800"/>
+            <line x1="45" y1="30" x2="45" y2="15" stroke="#0D47A1" stroke-width="4"/>
+            <circle cx="45" cy="12" r="5" fill="#E91E63"/>
+        </svg>`,
+
+        music: `<svg viewBox="0 0 100 100" fill="none">
+            <rect x="25" y="30" width="50" height="45" rx="10" fill="#9C27B0" stroke="#4A148C" stroke-width="4"/>
+            <circle cx="40" cy="48" r="6" fill="#FFF"/><circle cx="40" cy="48" r="3" fill="#000"/>
+            <circle cx="60" cy="48" r="6" fill="#FFF"/><circle cx="60" cy="48" r="3" fill="#000"/>
+            <path d="M42 62 Q50 68 58 62" stroke="#000" stroke-width="3" fill="none"/>
+            <path d="M20 45 C 20 15, 80 15, 80 45" stroke="#FFD54F" stroke-width="6" fill="none"/>
+            <rect x="18" y="40" width="8" height="18" rx="3" fill="#FF9800"/>
+            <rect x="74" y="40" width="8" height="18" rx="3" fill="#FF9800"/>
+            <text x="5" y="25" font-size="16" fill="#FFEB3B">🎵</text>
+        </svg>`,
+
+        thinking: `<svg viewBox="0 0 100 100" fill="none">
+            <rect x="25" y="30" width="50" height="45" rx="10" fill="#4CAF50" stroke="#1B5E20" stroke-width="4"/>
+            <line x1="34" y1="48" x2="46" y2="48" stroke="#000" stroke-width="3"/>
+            <circle cx="60" cy="48" r="6" fill="#FFF"/><circle cx="60" cy="48" r="3" fill="#000"/>
+            <path d="M42 63 L58 63" stroke="#000" stroke-width="3"/>
+            <line x1="50" y1="30" x2="55" y2="16" stroke="#1B5E20" stroke-width="4"/>
+            <circle cx="57" cy="13" r="5" fill="#00BCD4"/>
+        </svg>`
+    };
+
+    const tips = [
+        "Para abrir os links em nova aba, mantenha o código atualizado!",
+        "O Windows XP foi lançado em 25 de outubro de 2001!",
+        "Você sabia que pode trocar os gifs por links do Giphy ou Imgur?",
+        "Organizar os repositórios em trimestres facilita o portfólio!",
+        "Use o Google AI Studio para testar ideias rápidas de prompts."
+    ];
+
+    const mascotContainer = document.getElementById("mascot-container");
+    const mascotBubble = document.getElementById("mascot-bubble");
+    const mascotContent = document.getElementById("mascot-content-area");
+    const bgMusic = document.getElementById("bg-music");
+    const mediaPopup = document.getElementById("media-popup");
+
+    let isPlayingMusic = false;
+
+    setSprite('normal');
+
+    function setSprite(name) {
+        if (mascotSprites[name]) {
+            mascotContainer.innerHTML = mascotSprites[name];
+        }
+    }
+
+    function toggleMascotMenu() {
+        if (mascotBubble.style.display === "none") {
+            mascotBubble.style.display = "block";
+            resetMenuText();
+        } else {
+            mascotBubble.style.display = "none";
+        }
+    }
+
+    function resetMenuText() {
+        mascotContent.innerHTML = `
+            <button class="mascot-btn" onclick="actTalk()"> Me fale uma dica</button>
+            <button class="mascot-btn" onclick="actShowGif()"> Mostrar GIF Retrô</button>
+            <button class="mascot-btn" onclick="toggleMusic()">${isPlayingMusic ? '⏸ Parar Música' : ' Tocar Música'}</button>
+        `;
+        if (!isPlayingMusic) setSprite('normal');
+    }
+
+    function actTalk() {
+        setSprite('happy');
+        const randomTip = tips[Math.floor(Math.random() * tips.length)];
+        mascotContent.innerHTML = `<p style="margin:5px 0;">"${randomTip}"</p>
+        <button class="mascot-btn" onclick="resetMenuText()">⬅ Voltar ao Menu</button>`;
+    }
+
+    function actShowGif() {
+        setSprite('showing');
+        mediaPopup.style.display = "block";
+        mascotContent.innerHTML = `<p style="margin:5px 0;">Exibindo imagem retrô na tela! </p>
+        <button class="mascot-btn" onclick="resetMenuText()">⬅ Voltar ao Menu</button>`;
+    }
+
+    function closeMediaPopup() {
+        mediaPopup.style.display = "none";
+        if (!isPlayingMusic) setSprite('normal');
+    }
+
+    function toggleMusic() {
+        if (isPlayingMusic) {
+            bgMusic.pause();
+            isPlayingMusic = false;
+            setSprite('normal');
+            mascotContent.innerHTML = `<p style="margin:5px 0;">Música pausada. 🔇</p>
+            <button class="mascot-btn" onclick="resetMenuText()">⬅ Voltar ao Menu</button>`;
+        } else {
+            bgMusic.play().then(() => {
+                isPlayingMusic = true;
+                setSprite('music');
+                mascotContent.innerHTML = `<p style="margin:5px 0;">Tocando som 8-bit retro! </p>
+                <button class="mascot-btn" onclick="resetMenuText()">⬅ Voltar ao Menu</button>`;
+            }).catch(e => {
+                mascotContent.innerHTML = `<p style="margin:5px 0;">Clique novamente para autorizar o áudio.</p>`;
+            });
+        }
     }
 </script>
 
